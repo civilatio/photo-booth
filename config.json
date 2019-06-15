@@ -9,15 +9,22 @@
 		"preventScreensaver": true
 	},
 	"maxImageSize": "2048",
-	"countdownLength": 5,
+	"firstPhotoCountdownLength": "5",
+	"followingPhotosCountdownLength": "3",
+	"photoPreviewDuration": "8",
+	"photoSeriesLength": "3",
 	"slideshow": {
 		"enabled": true,
-		"activatesAfterSeconds": 30,
-		"secondsPerImages": 8
+		"activatesAfterSeconds": "30",
+		"secondsPerPhoto": "8"
 	},
 	"gphoto2": {
 		"capturetarget": 1,
 		"keep": true
+	},
+	"triggers": {
+		"onClick": true,
+		"customKeys": ["PageUp","PageDown","b"]
 	},
 	"content_dir": "../content",
 	"webapp": {
@@ -29,5 +36,8 @@
 		"type": "text",
 		"content": "<div style='font-size: 1.2em; padding-left: 25px;'><i class='fa fa-wifi' aria-hidden='true' style='font-size: 2.5em;'></i> <b style='font-size: 2em; padding-left: 15px;'>Photobox</b><br /><p>Logge dich ins Wlan ein, surfe zu <b style='padding: 0 5px;'>192.168.4.1</b> und lade deine Fotos herunter!</p></div>",
 		"position": "bottomleft"
+	},
+	"flash": {
+		"enabled": true
 	}
 }

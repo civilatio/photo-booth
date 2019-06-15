@@ -10,11 +10,13 @@ A multi-platform photo booth software using Electron and your camera
 
 ## Community
 
-If you want to stay up to date, sign up for the mailing list. You'll get notified about updates and it's the place to get in touch with other users. From time to time I also need a few testers.
+**Please note:**
 
-Write an empty email to [photo-booth-subscribe@philipptrenz.de](mailto:photo-booth-subscribe@philipptrenz.de) to join the list.
+Due to personal time constraints, I can no longer answer installation and configuration questions. In keeping with the Open Source philosophy, I have set up a mailing list to serve as a platform for exchange between new and experienced users. Therefore, I ask that as many as possible participate in the mailing list in order to share experiences as well as to provide assistance.
 
-Please report technical questions, bugs and feature requests as an issue here. All other questions are welcome to be addressed to [photo-booth@philipptrenz.de](mailto:photo-booth@philipptrenz.de).
+Send an empty email to [photo-booth-subscribe@philipptrenz.de](mailto:photo-booth-subscribe@philipptrenz.de) to join the list, then ask your questions to [photo-booth@philipptrenz.de](mailto:photo-booth@philipptrenz.de).
+
+For feature requests and bug reports feel free to open an [issue](http://github.com/philipptrenz/photo-booth/issues).
 
 If you like my project and you want to keep me motivated:
 
@@ -26,19 +28,13 @@ Simply connect your camera via USB or even via wifi to the computer running this
 
 photo-booth also provides a web application by running a webserver. Every newly taken photo gets immediately pushed to the webapp. From there it's easy for your guests to download their photos. There's also the option to leave a e-mail address for sending the photos afterwards. You only have to provide a Wi-Fi hotspot.
 
-Because of the use of gphoto2 it works with nearly any camera like plug and play. A list of supported devices can be found [here](http://gphoto.org/proj/libgphoto2/support.php).
-
-#### Notable Unsupported Devices
-1. Does **not** work with Raspberry Pi camera module!
-2. Does **not** work with webcams (such as those built into your laptop or Logitech USB)
+Because of the use of gphoto2 it works with nearly any camera like plug and play.
 
 ## Installation
 
 To clone and run this repository you'll need [Git](https://git-scm.com), [Node.js](https://nodejs.org/en/download/) and [gphoto2](http://gphoto.sourceforge.net/) installed. 
 
-I tested it under Ubuntu Linux (64bit), MacOS and Raspbian (Raspberry Pi 3, ARM). Anyway, the documentation here will be focused on Linux based systems. 
-
-**Hint:** It has been reported that the Raspberry Pi Zero (W) does not work for photo booth.
+Before getting started please check [here](#Unsupported-devices) if the hardware you want to use is supported. I tested photo-booth under Ubuntu Linux (64bit), MacOS and Raspbian (Raspberry Pi 3, ARM). Anyway, the documentation here will be focused on Linux based systems. 
 
 **Raspbian STRETCH (with desktop):**
 
@@ -67,10 +63,15 @@ sudo ./scripts/install_node_v9.sh
 npm install
 ```
 
-
 ## Run photo-booth
 
 To run photo-booth the following command should do it. To run the webapp on port 80 and for the usage of GPIO pins at the Raspberry Pi root privileges are required.
+
+**WORKAROUND FOR RASPBERRY PI 3 if Photo-Booth stays black**
+
+```
+export LD_PRELOAD=node_modules/sharp/vendor/lib/libz.so
+```
 
 **Important:** The command needs to be run from a terminal on the GUI, executing via SSH will most likely fail!
 
@@ -134,10 +135,16 @@ It looks like this:
 		"maxDownloadImageSize": 800,
 		"enableRemoteRelease": true
 	},
+	"live": {
+		"framerate": 10
+	},
 	"branding": {
 		"type": "text",
 		"content": "<div style='font-size: 1.2em; padding-left: 25px;'><i class='fa fa-wifi' aria-hidden='true' style='font-size: 2.5em;'></i> <b style='font-size: 2em; padding-left: 15px;'>photo-booth</b><br /><p>Log into wifi, browse to <b style='padding: 0 5px;'>photo.app</b> and download your photos!</p></div>",
 		"position": "bottomleft"
+	},
+	"flash": {
+	  "enabled": true
 	}
 }
 ```
@@ -154,6 +161,10 @@ Some notes:
 * You have to figure out the captureTarget of your camera. Even if you choose to keep images at the camera, if gphoto2 chooses to store by default to the RAM of your camera, images get deleted when camera get turned off. Figure out the right captureTarget by running `gphoto2 --get-config=capturetarget`, then choose something should named sd card or so. This should be your first try if a photo gets taken, but it won't show up at the screen.
 * If you want to keep images on camera, set `keep` to `true`
 * The errorMessage is pure HTML, just fill in whatever you want
+* Live Preview works only on some cameras, see this [list](http://gphoto.org/proj/libgphoto2/support.php) and check if it lists "Liveview" for your model.
+* Slideshow and liveview do not work together.
+* You have to experiment with the framerate for live preview depending on the power of your machine. On a Notebook with an Intel i7-8550U upto 15% CPU utilization are needed for 20 frames per second. Also if your camera is running on battery, it drastically decreases the battery duration.
+* When ``flash`` is set to `enabled` a white  page  will be shown as a flash after completing the countdown
 
 ### How to use the integrated webapp
 
@@ -189,9 +200,33 @@ Therefore activate the GPIOs by setting `"useGPIO": true` in config.json. Then c
                           |
 ```
 
+## Unsupported devices
+
+Please note that there are several devices which are not supported by photo-booth.
+
+### Unsupported architectures
+
+As Electron, the main framework, besides ia32 (i686) and x64 (amd64) only supports the ARM v7 architecture (and ARM v8 as it is backwards compatible), several ARM devices are not supported. Further information can be found [here](https://electronjs.org/docs/tutorial/support#linux). The following ARM devices among others can not be supported:
+
+* Raspberry Pi Zero
+* Raspberry Pi Zero W / WH 
+* Raspberry Pi 1 A / A+
+* Raspberry Pi 1 B / B+
+
+### Unsupported cameras
+
+* The Raspberry Pi camera module is not supported
+* Webcams (such as those built into your laptop or Logitech USB) are not supported
+
+Also some other DSLR and Compact Cameras are not supported. Please check for your specific model [here](http://gphoto.org/proj/libgphoto2/support.php).
+
 ## Common issues
 
 If you have any problems, start reading here. If you do not find anything, check under [Issues](https://github.com/philipptrenz/photo-booth/issues), if someone else already had a similar problem. If you still have no solution, open a new issue.
+
+### How to quit photo-booth in fullscreen?
+
+Hit the Escape key to exit the fullscreen mode, then you can close the app.
 
 ### Why are all images in grayscale?
 
@@ -209,11 +244,28 @@ Choice: 0 Memory card
 Choice: 1 Internal RAM
 
 ```
-Identify the number of the memory card and change the `captureTarget` property in `config.json`. 
+Identify the number of the memory card and change the `captureTarget` property in `config.json`.
+
+### error (-53 'could not claim the usb device')
+
+It seems to be an old known problem with gvfs-gphoto2-volume-monitor module. For reference [read here](https://github.com/raspberrypi/linux/issues/218#issuecomment-38143613).
+
+```
+sudo rm /usr/share/dbus-1/services/org.gtk.vfs.GPhoto2VolumeMonitor.service
+sudo rm /usr/share/gvfs/mounts/gphoto2.mount
+sudo rm /usr/share/gvfs/remote-volume-monitors/gphoto2.monitor
+sudo rm /usr/lib/gvfs/gvfs-gphoto2-volume-monitor
+```
 
 ## Contributors
 
+* [wikijm](https://github.com/wikijm)
 * [blak3r](https://github.com/blak3r)
+* [probststefan](https://github.com/probststefan)
+* [jgoestl](https://github.com/jgoestl)
+* [lal12](https://github.com/lal12)
+* [blaueQuelle](https://github.com/blaueQuelle)
+* [andi34](https://github.com/andi34)
 
 ## Mentions
 
