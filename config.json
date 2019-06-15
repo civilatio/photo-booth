@@ -2,7 +2,7 @@
 	"init": {
 		"fullscreen": true,
 		"width": 1280,
-		"height": 780,
+		"height": 960,
 		"showDevTools": false,
 		"useGPIO": false,
 		"grayscaleMode": false,
@@ -12,7 +12,7 @@
 	"firstPhotoCountdownLength": "5",
 	"followingPhotosCountdownLength": "3",
 	"photoPreviewDuration": "8",
-	"photoSeriesLength": "3",
+	"photoSeriesLength": "1",
 	"slideshow": {
 		"enabled": true,
 		"activatesAfterSeconds": "30",
@@ -38,6 +38,6 @@
 		"position": "bottomleft"
 	},
 	"flash": {
-		"enabled": true
+		"enabled": false
 	}
 }
