@@ -99,21 +99,21 @@ class PreviewPrompt extends Prompt {
 class CameraErrorPrompt extends Prompt {
 
 	constructor(duration) {
-		super('<div class="error"><i class="fa fa-camera" aria-hidden="true"></i>  Whoops ...<br /><p>Something went wrong, please check the camera and try again</p></div>', duration);
+		super('<div class="error"><i class="fa fa-camera" aria-hidden="true"></i>  Whoops ...<br /><p>Etwas ist schief gelaufen, bitte überprüfe die Kamera und versuche es nochmal</p></div>', duration);
 	}
 }
 
 class CameraErrorOnStartupPrompt extends Prompt {
 
 	constructor(duration) {
-		super('<div class="error"><i class="fa fa-camera" aria-hidden="true"></i>  Oh no ...<br /><p>No camera found. Please check the connection and test by triggering a photo</p></div>', duration);
+		super('<div class="error"><i class="fa fa-camera" aria-hidden="true"></i>  Oh no ...<br /><p>Keine Kamera gefunden. Bitte überprüfe die Verbindung und teste sie indem du ein Foto machst</p></div>', duration);
 	}
 }
 
 class SharpErrorPrompt extends Prompt {
 
 	constructor(duration) {
-		super('<div class="error"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>  Whoops ...<br /><p>Something went wrong when saving the photo, please try again</p></div>', duration);
+		super('<div class="error"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>  Whoops ...<br /><p>Etwas ist während des Speicherns des Fotos schief gelaufen, bitte versuche es nochmal</p></div>', duration);
 	}
 }
 

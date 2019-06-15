@@ -1,14 +1,14 @@
 {
 	"init": {
 		"fullscreen": true,
-		"width": 1440,
-		"height": 900,
+		"width": 1280,
+		"height": 780,
 		"showDevTools": false,
 		"useGPIO": false,
-		"grayscaleMode": true,
+		"grayscaleMode": false,
 		"preventScreensaver": true
 	},
-	"maxImageSize": "1500",
+	"maxImageSize": "2048",
 	"countdownLength": 5,
 	"slideshow": {
 		"enabled": true,
@@ -22,12 +22,12 @@
 	"content_dir": "../content",
 	"webapp": {
 		"password": "test",
-		"maxDownloadImageSize": 800,
+		"maxDownloadImageSize": 2048,
 		"enableRemoteRelease": true
 	},
 	"branding": {
 		"type": "text",
-		"content": "<div style='font-size: 1.2em; padding-left: 25px;'><i class='fa fa-wifi' aria-hidden='true' style='font-size: 2.5em;'></i> <b style='font-size: 2em; padding-left: 15px;'>photo-booth</b><br /><p>Log into wifi, browse to <b style='padding: 0 5px;'>photo.app</b> and download your photos!</p></div>",
+		"content": "<div style='font-size: 1.2em; padding-left: 25px;'><i class='fa fa-wifi' aria-hidden='true' style='font-size: 2.5em;'></i> <b style='font-size: 2em; padding-left: 15px;'>Photobox</b><br /><p>Logge dich ins Wlan ein, surfe zu <b style='padding: 0 5px;'>192.168.4.1</b> und lade deine Fotos herunter!</p></div>",
 		"position": "bottomleft"
 	}
 }
